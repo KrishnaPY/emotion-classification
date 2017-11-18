@@ -52,17 +52,23 @@ def spectral_centroid(x, rate):
 	print magnitudes.shape, freqs.shape
 	return np.sum(magnitudes*freqs)/np.sum(magnitudes)# return weighted mean
 
-def spectral_flux(x1, x2):
+def spectral_flux(x1, x2): # input is in time domain NEED TO pass FFT to opt
 	return np.sum(np.abs(FFT(x1)-FFT(x2))**2)
+	
+def hamming(n):
+	return 0.54-0.46*np.cos(2*np.pi*np.arange(n)/n)
+
+def cepstrum(x): # input is in time NEED TO pass FFT to opt
+	return np.fft.ifft(np.log(np.abs(FFT(x))))
 	
 
 
 
-x = np.random.random((1,1024))
+x = np.random.random((1,32))
 y = np.random.random((1,1024))
 start = timeit.default_timer()
 
-k = spectral_flux(x,y)
+print cepstrum(x)
 
 stop = timeit.default_timer()
 
