@@ -2,7 +2,7 @@ import numpy as np
 import os
 import cmath
 import math
-import timeit
+import timeit	
 
 directory = '/home/krispy/Desktop/DSP Project/oxvoc_dataset/Adult_cry_sounds'
 '''
@@ -52,14 +52,17 @@ def spectral_centroid(x, rate):
 	print magnitudes.shape, freqs.shape
 	return np.sum(magnitudes*freqs)/np.sum(magnitudes)# return weighted mean
 
-def spectral_flux():
-	pass
+def spectral_flux(x1, x2):
+	return np.sum(np.abs(FFT(x1)-FFT(x2))**2)
+	
 
 
+
+x = np.random.random((1,1024))
+y = np.random.random((1,1024))
 start = timeit.default_timer()
 
-x = np.random.random((1,10000000))
-k = FFT(x)
+k = spectral_flux(x,y)
 
 stop = timeit.default_timer()
 
@@ -70,3 +73,4 @@ print stop - start
 
 
 
+	
