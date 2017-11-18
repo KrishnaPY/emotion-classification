@@ -61,22 +61,32 @@ def hamming(n):
 def cepstrum(x): # input is in time NEED TO pass FFT to opt
 	return np.fft.ifft(np.log(np.abs(FFT(x))))
 	
+def pitch(x, rate): # passing TIME domain signal
+	N = np.size(x)
+	w = hamming(N)
+	x = w*(x/(1.01*np.abs(np.amax(x)))) # normalizing and applying hamming
+	y = cepstrum(x)[:N//2 +1]  # cesptrum is symmetric so we take half
+	l = np.zeros((1,np.size(y)))
+	l[15:]=1
+	y1 = y*l
+	y_val = np.real(y1)
+	y_loc = np.argmax(y1) # y_loc gives pitch period
+	pitch_period = 1 + y_loc
+	print w,x,y,l
+	return (1/pitch_period)*rate #pitch frequency
 
 
+	
 
-x = np.random.random((1,32))
+
+x = np.random.random((1,1024))
 y = np.random.random((1,1024))
 start = timeit.default_timer()
 
-print cepstrum(x)
+print pitch(x,44210)
 
 stop = timeit.default_timer()
 
 print stop - start 
-
-
-
-
-
 
 	
