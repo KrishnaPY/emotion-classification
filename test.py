@@ -3,8 +3,8 @@ import numpy as np
 import csv
 
 
-cry = np.genfromtxt("cry1.csv", delimiter=',', skip_header=True)
-laugh = np.genfromtxt("laugh1.csv", delimiter=',', skip_header=True)
+cry = np.genfromtxt("adult_cry_extract40.csv", delimiter=',', skip_header=True)
+laugh = np.genfromtxt("adult_laugh_extract40.csv", delimiter=',', skip_header=True)
 
 #print cry[30,:], laugh[30,:]
 cry_mfcc = cry[:,3:]
@@ -26,8 +26,8 @@ laugh_cent = laugh[:,1]
 
 fig = plt.figure()
 
-plt.scatter(cry_mfcc[:,10],cry_flux,c='r',label='cry')
-plt.scatter(laugh_mfcc[:,10],laugh_flux,c='b',label='laugh')
+plt.scatter(cry_mfcc[:,10],cry_cent,c='r',label='cry')
+plt.scatter(laugh_mfcc[:,10],laugh_cent,c='b',label='laugh')
 
 plt.xlabel('mfcc ')
 plt.ylabel('flux')
