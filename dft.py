@@ -4,14 +4,7 @@ import cmath
 import math
 import timeit	
 
-directory = '/home/krispy/Desktop/DSP Project/oxvoc_dataset/Adult_cry_sounds'
-'''
-for filename in os.listdir(directory):
-	if filename.endswith('.wav'):
-		print os.path.join(directory,filename)
-	else:
-		continue
-'''
+
 
 
 def DFT(x): 
@@ -49,7 +42,6 @@ def spectral_centroid(x, rate):
 	N = x.shape[1]
 	magnitudes = np.abs(FFT(x))[:,:N//2 +1]
 	freqs = fft_freqs(x, rate)[:N//2 +1]
-	print magnitudes.shape, freqs.shape
 	return np.sum(magnitudes*freqs)/np.sum(magnitudes)# return weighted mean
 
 def spectral_flux(x1, x2): # input is in time domain NEED TO pass FFT to opt
@@ -72,21 +64,10 @@ def pitch(x, rate): # passing TIME domain signal
 	y_val = np.real(y1)
 	y_loc = np.argmax(y1) # y_loc gives pitch period
 	pitch_period = 1 + y_loc
-	print w,x,y,l
 	return (1/pitch_period)*rate #pitch frequency
 
 
 	
 
-
-x = np.random.random((1,1024))
-y = np.random.random((1,1024))
-start = timeit.default_timer()
-
-print pitch(x,44210)
-
-stop = timeit.default_timer()
-
-print stop - start 
 
 	
