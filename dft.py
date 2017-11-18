@@ -66,7 +66,14 @@ def pitch(x, rate): # passing TIME domain signal
 	pitch_period = 1 + y_loc
 	return (1/pitch_period)*rate #pitch frequency
 
-
+def zcr(x,rate):
+    change=0 
+    size = np.size(x)
+    x1 = x - np.average(x)                        #counts the zero crossings
+    for i in range(size-1):
+        if(x1[:,i]*x1[:,i+1]<0):
+            change+=1
+	return  change*rate/float(size)
 	
 
 
