@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib as plt
 import scipy.io.wavfile
 from dft import spectral_centroid, spectral_flux, pitch
 import os
@@ -9,10 +8,10 @@ import timeit
 import librosa.feature
 import csv
 
-csvfile = "cry.csv"
+csvfile = "laugh1.csv"
 featureRow = ['emotion','centroid','flux','pitch','mfcc']
 
-directory = '/home/krispy/Desktop/DSP Project/oxvoc_dataset/Adult_cry_sounds'
+directory = '/home/krispy/Desktop/DSP Project/oxvoc_dataset/Adult_laugh_sounds'
 frame_time = 30
 samples_per_frame = 1024
 centroid_list = []
@@ -37,6 +36,7 @@ with open(csvfile, "a") as fp:
 				flux = spectral_flux(x,x_old)
 				pitch_freq = pitch(x,rate)
 				coeffs = np.average((librosa.feature.mfcc(x[0,:],sr=rate)),axis=1)
+				np.append(['cry',centroid],coeffs,axis=1)
 				wr.writerow(['cry',centroid, flux, coeffs[0],coeffs[1],coeffs[2],coeffs[3],coeffs[4],coeffs[5],coeffs[6],coeffs[7],coeffs[8],coeffs[9],coeffs[10],coeffs[11],coeffs[12],coeffs[13],coeffs[14],coeffs[15],coeffs[16],coeffs[17],coeffs[18],coeffs[19]])
 				'''
 				centroid_list.append(centroid)
