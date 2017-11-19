@@ -2,8 +2,8 @@ import numpy as np
 import csv
 from sklearn.preprocessing import StandardScaler
 
-cry = np.genfromtxt("adult_cry_extract40.csv", delimiter=',', skip_header=True)
-laugh = np.genfromtxt("adult_laugh_extract40.csv", delimiter=',', skip_header=True)
+cry = np.genfromtxt("ACry_extract40.csv", delimiter=',', skip_header=True)
+laugh = np.genfromtxt("ALaugh_extract40.csv", delimiter=',', skip_header=True)
 
 #print cry[30,:], laugh[30,:]
 
