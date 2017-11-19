@@ -75,5 +75,18 @@ def zcr(x,rate):
             change+=1
 	return  change*rate/float(size)
 	
+def spectral_spread(x, rate):
+	return np.sum(np.abs(x - spectral_centroid(x,rate))**2)
 
+def energy(x,rate):
+	return np.sum(np.abs(x)**2)/(rate/np.size(x))
+
+def spectral_entropy(x):
+	N = np.size(x)
+	psd = np.abs(FFT(x)[:,:N//2 +1])**2 # +ve psd as its a real signal
+	psd = psd/np.sum(psd) # normalised psd
+	return -np.sum(psd*np.log2(psd))
+
+
+print spectral_entropy(np.random.random((1,2048)))
 	
