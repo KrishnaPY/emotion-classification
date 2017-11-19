@@ -84,8 +84,8 @@ def energy(x,rate):
 def spectral_entropy(x):
 	N = np.size(x)
 	psd = np.abs(FFT(x)[:,:N//2 +1])**2 # +ve psd as its a real signal
-	psd = psd/np.sum(psd) # normalised psd
-	return -np.sum(psd*np.log2(psd))
+	psd = psd/np.sum(psd + 1e-3) # normalised psd
+	return -np.sum(psd*np.log2(psd+ 1e-3))
 
 
 	

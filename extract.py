@@ -41,9 +41,10 @@ with open(csvfile, "a") as fp:
 				ener = energy(x, rate)
 				coeffs = np.average((librosa.feature.mfcc(x[0,:],sr=rate)),axis=1)
 				
-				wr.writerow(np.append(['laugh',centroid,spread,entropy,ener],coeffs))
+				wr.writerow(np.append([1,centroid,spread,entropy,ener],coeffs))
 				#wr.writerow(['cry',centroid, flux, coeffs[0],coeffs[1],coeffs[2],coeffs[3],coeffs[4],coeffs[5],coeffs[6],coeffs[7],coeffs[8],coeffs[9],coeffs[10],coeffs[11],coeffs[12],coeffs[13],coeffs[14],coeffs[15],coeffs[16],coeffs[17],coeffs[18],coeffs[19]])
 				'''
+
 				centroid_list.append(centroid)
 				flux_list.append(flux)
 				pitch_list.append(pitch_freq)
