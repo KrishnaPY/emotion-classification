@@ -8,10 +8,10 @@ import timeit
 import librosa.feature
 import csv
 
-csvfile = "ALaugh_extract40.csv"
+csvfile = "ALaugh_male_extract40.csv"
 featureRow = ['emotion','centroid','spread','entropy','energy','mfcc']
 
-directory = '/home/krispy/Desktop/DSP Project/oxvoc_dataset/Adult_laugh_sounds'
+directory = '/home/krispy/Desktop/DSP Project/oxvoc_dataset/Adult_male_laugh_sounds'
 frame_time = 40
 samples_per_frame = 2048
 centroid_list = []
