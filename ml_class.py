@@ -25,15 +25,6 @@ Ytrain = le.fit_transform(Ytrain)
 Xtest = test[:,1:]
 Ytest = test[:,0]
 Ytest = le.fit_transform(Ytest)
-
-
-print  Ytrain, le.fit_transform(Ytrain)
-
-print Xtrain.shape, Xtest.shape
-
-
-
-
 '''
 rbf_kernel_svm_clf = Pipeline((("scaler",StandardScaler()),("svm_clf",SVC(kernel='rbf', gamma=5, C=0.001))))
 

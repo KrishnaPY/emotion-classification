@@ -79,7 +79,7 @@ def spectral_spread(x, rate):
 	return np.sum(np.abs(x - spectral_centroid(x,rate))**2)
 
 def energy(x,rate):
-	return np.sum(np.abs(x)**2)/(rate/np.size(x))
+	return float(np.sum(np.abs(x)**2))/float(float(rate)/float(np.size(x)))
 
 def spectral_entropy(x):
 	N = np.size(x)
@@ -88,5 +88,4 @@ def spectral_entropy(x):
 	return -np.sum(psd*np.log2(psd))
 
 
-print spectral_entropy(np.random.random((1,2048)))
 	

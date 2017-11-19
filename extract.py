@@ -1,6 +1,6 @@
 import numpy as np
 import scipy.io.wavfile
-from dft import spectral_centroid, spectral_flux, pitch,zcr
+from dft import spectral_centroid, spectral_flux, spectral_spread, spectral_entropy, energy,zcr
 import os
 import cmath
 import math
@@ -8,11 +8,11 @@ import timeit
 import librosa.feature
 import csv
 
-csvfile = "adult_cry_extract40.csv"
-featureRow = ['emotion','centroid','flux','zcr','mfcc']
+csvfile = "ACry_extract40.csv"
+featureRow = ['emotion','centroid','spread','entropy','energy','mfcc']
 
 directory = '/home/krispy/Desktop/DSP Project/oxvoc_dataset/Adult_cry_sounds'
-frame_time = 30
+frame_time = 40
 samples_per_frame = 2048
 centroid_list = []
 flux_list = []
@@ -36,10 +36,12 @@ with open(csvfile, "a") as fp:
 		    		centroid = spectral_centroid(x,rate)
 				flux = spectral_flux(x,x_old)
 				zc = zcr(x,rate)
-				pitch_freq = pitch(x,rate)
+				spread = spectral_spread(x, rate)
+				entropy = spectral_entropy(x)
+				ener = energy(x, rate)
 				coeffs = np.average((librosa.feature.mfcc(x[0,:],sr=rate)),axis=1)
 				
-				wr.writerow(np.append(['cry',centroid,flux,zc],coeffs))
+				wr.writerow(np.append(['nonLaugh',centroid,spread,entropy,ener],coeffs))
 				#wr.writerow(['cry',centroid, flux, coeffs[0],coeffs[1],coeffs[2],coeffs[3],coeffs[4],coeffs[5],coeffs[6],coeffs[7],coeffs[8],coeffs[9],coeffs[10],coeffs[11],coeffs[12],coeffs[13],coeffs[14],coeffs[15],coeffs[16],coeffs[17],coeffs[18],coeffs[19]])
 				'''
 				centroid_list.append(centroid)
