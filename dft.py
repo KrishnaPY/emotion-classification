@@ -78,6 +78,12 @@ def zcr(x,rate):
 def spectral_spread(x, rate):
 	return np.sum(np.abs(x - spectral_centroid(x,rate))**2)
 
+def spectral_skew(x, rate):
+	return np.sum(np.abs(x - spectral_centroid(x,rate))**3)
+
+def spectral_kurt(x, rate):
+	return np.sum(np.abs(x - spectral_centroid(x,rate))**4)
+
 def energy(x,rate):
 	return float(np.sum(np.abs(x)**2))/float(float(rate)/float(np.size(x)))
 
@@ -86,6 +92,40 @@ def spectral_entropy(x):
 	psd = np.abs(FFT(x)[:,:N//2 +1])**2 # +ve psd as its a real signal
 	psd = psd/np.sum(psd + 1e-3) # normalised psd
 	return -np.sum(psd*np.log2(psd+ 1e-3))
+'''
+def mtFeatureExtraction(signal, Fs, mtWin, mtStep, stWin, stStep): #mid level feautures
+    """
+    Mid-term feature extraction
+    """
 
+    mtWinRatio = int(round(mtWin / stStep))
+    mtStepRatio = int(round(mtStep / stStep))
 
-	
+    mtFeatures = []
+
+    stFeatures = stFeatureExtraction(signal, Fs, stWin, stStep)
+    numOfFeatures = len(stFeatures)
+    numOfStatistics = 2
+
+    mtFeatures = []
+    #for i in range(numOfStatistics * numOfFeatures + 1):
+    for i in range(numOfStatistics * numOfFeatures):
+        mtFeatures.append([])
+
+    for i in range(numOfFeatures):        # for each of the short-term features:
+        curPos = 0
+        N = len(stFeatures[i])
+        while (curPos < N):
+            N1 = curPos
+            N2 = curPos + mtWinRatio
+            if N2 > N:
+                N2 = N
+            curStFeatures = stFeatures[i][N1:N2]
+
+            mtFeatures[i].append(numpy.mean(curStFeatures))
+            mtFeatures[i+numOfFeatures].append(numpy.std(curStFeatures))
+            #mtFeatures[i+2*numOfFeatures].append(numpy.std(curStFeatures) / (numpy.mean(curStFeatures)+0.00000010))
+            curPos += mtStepRatio
+
+	return numpy.array(mtFeatures), stFeatures
+'''	
