@@ -4,7 +4,6 @@ from dft import spectral_centroid, spectral_flux, spectral_spread, spectral_entr
 import os
 import cmath
 import math
-import timeit	
 import librosa.feature
 import csv
 

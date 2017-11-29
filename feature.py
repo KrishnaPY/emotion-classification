@@ -4,7 +4,7 @@ import cmath
 import math
 import timeit	
 
-
+# FILE WITH ALL FEATURE EXTRACTION FUNCTIONS
 
 
 def DFT(x): 
@@ -92,6 +92,19 @@ def spectral_entropy(x):
 	psd = np.abs(FFT(x)[:,:N//2 +1])**2 # +ve psd as its a real signal
 	psd = psd/np.sum(psd + 1e-3) # normalised psd
 	return -np.sum(psd*np.log2(psd+ 1e-3))
+
+
+
+
+def mfcc(signal,samplerate=16000,winlen=0.025,winstep=0.01,numcep=13,
+         nfilt=26,nfft=512,lowfreq=0,highfreq=None,preemph=0.97,ceplifter=22,appendEnergy=True,
+         winfunc=lambda x:numpy.ones((x,))):
+	energy = fbank(signal,samplerate,winlen,winstep,nfilt,nfft,lowfreq,highfreq,preemph,winfunc)
+	feat = numpy.log(feat)
+	feat = dct(feat, type=2, axis=1, norm='ortho')[:,:numcep]
+	feat = lifter(feat,ceplifter)
+	if appendEnergy: feat[:,0] = numpy.log(energy) # replace first cepstral coefficient with log of frame energy
+	return feat
 '''
 def mtFeatureExtraction(signal, Fs, mtWin, mtStep, stWin, stStep): #mid level feautures
     """

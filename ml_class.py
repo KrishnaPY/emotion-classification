@@ -9,7 +9,7 @@ import keras
 from keras.models import Sequential
 from keras.layers import Dense
 import numpy
-# fix random seed for reproducibility
+
 numpy.random.seed(7)
 
 percentTrain = 0.7
@@ -21,7 +21,7 @@ print laugh.shape
 print cry.shape
 
 
-
+# CALCULATING THE MID-LEVEL FEATURES
 numStats = 15
 
 nC = cry.shape[0]
@@ -55,6 +55,7 @@ print list(le.classes_)
 '''
 
 #print data[5:10,:]
+#SPLITTING THE DATA INTO TRAIN AND TEST
 
 train = data[:int(percentTrain*data.shape[0]),:]
 test = data[int(percentTrain*data.shape[0])+1:,:]
@@ -71,13 +72,14 @@ num_feat = Xtrain.shape[1]
 
 #rbf_kernel_svm_clf = Pipeline((("scaler",StandardScaler()),("svm_clf",SVC(kernel='rbf', gamma=1000, C=1000))))
 
-
+# SVM CLASSFIER
 rbf_kernel_svm_clf = SVC(kernel='linear')
 scores = cross_val_score(rbf_kernel_svm_clf, Xtrain, Ytrain, cv=2)
 print scores
 
 #rbf_kernel_svm_clf.fit(Xtrain,Ytrain)
 '''
+# MLP CLASSIFIER
 model = Sequential()
 model.add(Dense(25, input_dim= num_feat, activation='relu'))
 model.add(Dense(12, activation='relu'))
